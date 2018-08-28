@@ -1,0 +1,10 @@
+<nav>
+    <ul>
+        <li>Address: {{accountDetails.account}}</li>
+        <li>Balance: {{accountDetails.balance}} ETH</li>
+    </ul>
+</nav>
+
+<router-outlet></router-outlet>
+
+<app-contract (talk)="talkBack($event)"></app-contract>

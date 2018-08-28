@@ -1,0 +1,46 @@
+<div [hidden]="success">
+    <p>
+        Welcome to the Cryptogalactic Amusement Park!
+    </p>
+
+    <p>Entrance fee / person: {{ entranceFee }} ETH</p>
+
+    <form #coinForm="ngForm">
+        <div class="field">
+            <label class="label">How many tickets would you like to purchase?</label>
+            <p class="control">
+                <input [(ngModel)]="numTickets" (ngModelChange)="calculateTotalEntrancePrice(numTickets)" class="input" type="text" placeholder="Number of entrance tickets" name="numTickets" required #numTicketsModel="ngModel">
+            </p>
+            <div *ngIf="numTicketsModel.errors && (numTicketsModel.dirty || numTicketsModel.touched)" class="help is-danger">
+                <p [hidden]="!numTicketsModel.errors.required">
+                    This field is required
+                </p>
+            </div>
+            <div *ngIf="!numTicketsModel.errors && (numTicketsModel.dirty || numTicketsModel.touched)" class="help is-danger">
+                <p [hidden]="canBeNumber(numTickets)">
+                    Must be a number
+                </p>
+            </div>
+        </div>
+        <div *ngIf="totalPrice > 0" class="field">
+            <label class="label">Total amount to pay is </label> <span>{{totalPrice}} ETH</span>
+        </div>
+        <!-- <div class="field">
+        <label class="label">To Address</label>
+        <div>
+            <input type="text" [(ngModel)]="contractAddress" name="contractAddress" readonly/>
+        </div>
+
+    </div> -->
+
+        <div class="field is-grouped">
+            <p class="control">
+                <button [disabled]="!coinForm.valid" (click)="payEntranceFee()" class="button is-primary">
+          Pay entrance fee
+        </button>
+            </p>
+        </div>
+    </form>
+
+</div>
+<!-- <router-outlet></router-outlet> -->
